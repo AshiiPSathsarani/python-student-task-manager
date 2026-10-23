@@ -1,9 +1,27 @@
 
+import json
+import os
+
+FILE_NAME = "tasks.json"
+
+
+def load_tasks():
+    if os.path.exists(FILE_NAME):
+        with open(FILE_NAME, "r") as file:
+            return json.load(file)
+    return []
+
+
+def save_tasks():
+    with open(FILE_NAME, "w") as file:
+        json.dump(tasks, file, indent=4)
+
+
+tasks = load_tasks()
+
 print("================================")
 print("   PYTHON STUDENT TASK MANAGER")
 print("================================")
-
-tasks = []
 
 while True:
     print("\n1. Add a task")
@@ -15,6 +33,7 @@ while True:
     if choice == "1":
         task = input("Enter your task: ")
         tasks.append(task)
+        save_tasks()
         print("Task added successfully!")
 
     elif choice == "2":
